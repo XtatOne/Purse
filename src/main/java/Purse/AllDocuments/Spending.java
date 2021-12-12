@@ -1,4 +1,7 @@
-package Purse;
+package Purse.AllDocuments;
+
+import Purse.SupportClasses.ActionType;
+import Purse.SupportClasses.Contragent;
 
 public class Spending extends Document {
 
@@ -12,6 +15,13 @@ public class Spending extends Document {
         this.recipient  = recipient;
         this.type       = type;
 
+    }
+
+    @Override
+    public String toString() {
+        return "Списание номер " + this.getNumber()
+                + " на сумму " + this.getSum()
+                + " от " + this.getDocDate();
     }
 
     public Contragent getRecipient() {

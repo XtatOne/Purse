@@ -1,6 +1,11 @@
-package Purse;
+package Purse.AllDocuments;
 
-public class Arrival extends Document{
+import Purse.SupportClasses.ActionType;
+import Purse.SupportClasses.Contragent;
+
+import java.util.Date;
+
+public class Arrival extends Document {
 
     private Contragent payer;
     private ActionType type;
@@ -12,6 +17,13 @@ public class Arrival extends Document{
         this.payer  = payer;
         this.type   = type;
 
+    }
+
+    @Override
+    public String toString() {
+        return "Поступление номер " + this.getNumber()
+                + " на сумму " + this.getSum()
+                + " от " + this.getDocDate();
     }
 
     public Contragent getPayer() {

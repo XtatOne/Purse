@@ -1,7 +1,6 @@
-import Purse.ActionType;
-import Purse.Arrival;
-import Purse.Contragent;
-import Purse.Spending;
+import Purse.SupportClasses.ActionType;
+import Purse.SupportClasses.Contragent;
+import Purse.AllDocuments.Spending;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;

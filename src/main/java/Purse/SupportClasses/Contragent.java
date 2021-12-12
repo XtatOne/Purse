@@ -1,4 +1,4 @@
-package Purse;
+package Purse.SupportClasses;
 
 public class Contragent {
 

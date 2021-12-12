@@ -1,14 +1,23 @@
 package Purse;
 
+import Purse.AllDocuments.Arrival;
+import Purse.AllDocuments.Document;
+import Purse.AllDocuments.Spending;
+import Purse.SupportClasses.ActionType;
+import Purse.SupportClasses.Contragent;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Main {
 
-    private static ArrayList<Document> balance          = new ArrayList<>();
-    private static ArrayList<Contragent> contragents    = new ArrayList<>();
+    private static List<Document>   balance      = new ArrayList<>();
+    private static Set<Contragent>  contragents  = new HashSet<>();
 
     public static void main(String[] args) throws IOException {
 
@@ -53,7 +62,27 @@ public class Main {
 
                 case "3":
 
-                    showBalance();
+                    System.out.println("Выберете действие: \n1. Показать все поступления 2. Показать все списания 3. Показать текущий баланс.");
+
+                    String balanceAction = reader.readLine();
+
+                    switch (balanceAction) {
+
+                        case "1":
+                            showAllSpecificDocuments(ActionType.ARRIVAL);
+                            break;
+                        case "2":
+                            showAllSpecificDocuments(ActionType.SPENDING);
+                            break;
+                        case "3":
+                            showBalance();
+                            break;
+                        default:
+                            System.out.println("Выбранно некорретное действие. Попробуйте еще раз.");
+                            break;
+
+                    }
+
                     break;
 
                 case "4":
@@ -63,10 +92,8 @@ public class Main {
                     break;
 
                 default:
-
                     System.out.println("Выбранно некорретное действие. Попробуйте еще раз.");
                     break;
-
             }
 
         }
@@ -81,7 +108,7 @@ public class Main {
 
             Contragent payer = checkContragent(payerName);
 
-            if (!(payer == null)) {
+            if (payer != null) {
                 balance.add(new Arrival(ActionType.ARRIVAL, payer, sum));
             } else {
 
@@ -105,7 +132,7 @@ public class Main {
 
             Contragent recipient = checkContragent(recipientName);
 
-            if (!(recipient == null)) {
+            if (recipient != null) {
                 balance.add(new Spending(ActionType.SPENDING, recipient, sum));
             } else {
 
@@ -125,10 +152,20 @@ public class Main {
 
     private static Contragent checkContragent(String checkName) {
 
-        return  contragents.stream().filter(contragent -> contragent.getName().equals(checkName))
-            .findFirst().orElse(null);
+        return  contragents.stream()
+                    .filter(contragent -> contragent.getName().equals(checkName))
+                    .findFirst()
+                    .orElse(null);
 
     }
+
+    private static void showAllSpecificDocuments(ActionType type) {
+
+        balance.stream().filter((element -> element.getType().equals(type)))
+                .sorted()
+                .forEach((element) -> System.out.println(element));
+    }
+
 
     private static void showBalance() {
 

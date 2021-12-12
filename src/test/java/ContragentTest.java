@@ -1,4 +1,4 @@
-import Purse.Contragent;
+import Purse.SupportClasses.Contragent;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
